@@ -13,22 +13,33 @@ class Task: NSObject {
     var taskDescription: String?
     var dueDate: Date?
     var isCompleted: Bool?
+    var errorMsg: String?
     
     func setTaskTitle(newTaskTitle: String) {
-        
+        taskTitle = newTaskTitle
     }
     
     func setTaskDescription(newTaskDescription: String) {
-        
+        taskDescription = newTaskDescription
     }
     
     func setDueDate(newDueDate: Date) {
-        
+        dueDate = newDueDate
     }
     
-    func setStatus(isCompleted: Bool) {
-        
+    func setCompletitionStatus(newStatus: Bool) {
+        isCompleted = newStatus
     }
     
-
+    func toString() -> String {
+        var rtnValue: String = "\(String(describing: taskTitle)): \(String(describing: taskDescription)) "
+        if(isCompleted!) {
+            rtnValue += "Task has been completed"
+        }
+        else {
+            rtnValue += "Must be completed by: \(String(describing: dueDate))"
+        }
+        return rtnValue
+    }
+    
 }
