@@ -13,6 +13,7 @@
 		FA7861752265C51A000AD2B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA7861742265C51A000AD2B6 /* Assets.xcassets */; };
 		FA7861782265C51A000AD2B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA7861762265C51A000AD2B6 /* LaunchScreen.storyboard */; };
 		FA7861802265C542000AD2B6 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78617F2265C542000AD2B6 /* Task.swift */; };
+		FA7861842265D05A000AD2B6 /* addEditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7861832265D05A000AD2B6 /* addEditTaskViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		FA7861772265C51A000AD2B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FA7861792265C51A000AD2B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA78617F2265C542000AD2B6 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		FA7861832265D05A000AD2B6 /* addEditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addEditTaskViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +42,7 @@
 		FA7861612265C518000AD2B6 = {
 			isa = PBXGroup;
 			children = (
+				FA7861832265D05A000AD2B6 /* addEditTaskViewController.swift */,
 				FA78617F2265C542000AD2B6 /* Task.swift */,
 				FA78616C2265C518000AD2B6 /* Assignment 2 */,
 				FA78616B2265C518000AD2B6 /* Products */,
@@ -141,6 +144,7 @@
 				FA7861702265C518000AD2B6 /* ViewController.swift in Sources */,
 				FA7861802265C542000AD2B6 /* Task.swift in Sources */,
 				FA78616E2265C518000AD2B6 /* AppDelegate.swift in Sources */,
+				FA7861842265D05A000AD2B6 /* addEditTaskViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
