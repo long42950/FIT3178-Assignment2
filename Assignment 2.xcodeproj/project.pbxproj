@@ -14,6 +14,8 @@
 		FA7861782265C51A000AD2B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA7861762265C51A000AD2B6 /* LaunchScreen.storyboard */; };
 		FA7861802265C542000AD2B6 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78617F2265C542000AD2B6 /* Task.swift */; };
 		FA7861842265D05A000AD2B6 /* addEditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7861832265D05A000AD2B6 /* addEditTaskViewController.swift */; };
+		FA7861862265E500000AD2B6 /* AllTasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7861852265E500000AD2B6 /* AllTasksTableViewController.swift */; };
+		FA7861882265E551000AD2B6 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7861872265E551000AD2B6 /* TaskTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		FA7861792265C51A000AD2B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA78617F2265C542000AD2B6 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		FA7861832265D05A000AD2B6 /* addEditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addEditTaskViewController.swift; sourceTree = "<group>"; };
+		FA7861852265E500000AD2B6 /* AllTasksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTasksTableViewController.swift; sourceTree = "<group>"; };
+		FA7861872265E551000AD2B6 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +46,8 @@
 		FA7861612265C518000AD2B6 = {
 			isa = PBXGroup;
 			children = (
+				FA7861872265E551000AD2B6 /* TaskTableViewCell.swift */,
+				FA7861852265E500000AD2B6 /* AllTasksTableViewController.swift */,
 				FA7861832265D05A000AD2B6 /* addEditTaskViewController.swift */,
 				FA78617F2265C542000AD2B6 /* Task.swift */,
 				FA78616C2265C518000AD2B6 /* Assignment 2 */,
@@ -143,8 +149,10 @@
 			files = (
 				FA7861702265C518000AD2B6 /* ViewController.swift in Sources */,
 				FA7861802265C542000AD2B6 /* Task.swift in Sources */,
+				FA7861882265E551000AD2B6 /* TaskTableViewCell.swift in Sources */,
 				FA78616E2265C518000AD2B6 /* AppDelegate.swift in Sources */,
 				FA7861842265D05A000AD2B6 /* addEditTaskViewController.swift in Sources */,
+				FA7861862265E500000AD2B6 /* AllTasksTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
