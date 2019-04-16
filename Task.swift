@@ -11,6 +11,24 @@ import Foundation
 class Task: NSObject {
     var taskTitle: String?
     var taskDescription: String?
-    var dueDate: String?
+    var dueDate: Date?
     var isCompleted: Bool?
+    
+    func setTaskTitle(newTaskTitle: String) {
+        
+    }
+    
+    func setTaskDescription(newTaskDescription: String) {
+        
+    }
+    
+    func setDueDate(newDueDate: Date) {
+        
+    }
+    
+    func setStatus(isCompleted: Bool) {
+        
+    }
+    
+
 }
