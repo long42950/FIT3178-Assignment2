@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AllTasksTableViewController: UITableViewController, UISearchResultsUpdating{
+class AllTasksTableViewController: UITableViewController, UISearchResultsUpdating, AddTaskDelegate{
     
     let SECTION_TASKS = 0;
     let SECTION_STATUS = 1;
@@ -64,7 +64,9 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == SECTION_STATUS {
+        var test: Int = indexPath.section
+        
+        if indexPath.section == 0 {
             let taskCell = tableView.dequeueReusableCell(withIdentifier: TASK_CELL, for: indexPath)
             as! TaskTableViewCell
             let task = filteredTasks[indexPath.row]
@@ -76,6 +78,8 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
             
             taskCell.nameLabel.text = task.taskTitle
             taskCell.dueDateLabel.text = dateFormatter.string(from: task.dueDate!)
+            
+            return taskCell
         }
         
         let statusCell = tableView.dequeueReusableCell(withIdentifier: STATUS_CELL, for: indexPath) as! TaskStatusTableViewCell
@@ -136,6 +140,13 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
         allTasks.append(Task(title: "Task3", des: "3", due: Date()))
         allTasks.append(Task(title: "Task4", des: "4", due: Date()))
         allTasks.append(Task(title: "Task5", des: "5", due: Date()))
+    }
+    
+    func addTask(newTask: Task) -> Bool {
+        allTasks.append(newTask)
+        filteredTasks.append(newTask)
+        tableView.beginUpdates()
+        tableView.insertRows(at: [IndexPath(row: <#T##Int#>, section: <#T##Int#>)], with: <#T##UITableView.RowAnimation#>)
     }
 
 }
