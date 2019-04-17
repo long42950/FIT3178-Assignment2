@@ -8,21 +8,22 @@
 
 import UIKit
 
-class AllTasksTableViewController: UITableViewController, UISearchResultsUpdating, AddTaskDelegate{
+class AllTasksTableViewController: UITableViewController, UISearchResultsUpdating, TaskDelegate{
     
     let SECTION_TASKS = 0;
     let SECTION_STATUS = 1;
     let TASK_CELL = "taskCell"
     let STATUS_CELL = "taskNumCell"
+    let TODAY = Date()
     var allTasks: [Task] = []
     var filteredTasks: [Task] = []
-    
+    var addTaskDelegate: TaskDelegate?
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        testMethod()
+        //testMethod()
         
         filteredTasks = allTasks
 
@@ -31,6 +32,7 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Tasks"
         navigationItem.searchController = searchController
+        
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -54,8 +56,15 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        var count: Int  = 0
+        //exclude completed task
         if section == SECTION_TASKS {
-            return filteredTasks.count
+            for task in allTasks {
+                if !task.isCompleted! {
+                    count += 1
+                }
+            }
+            return count
         }
         else {
             return 1
@@ -64,9 +73,8 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var test: Int = indexPath.section
         
-        if indexPath.section == 0 {
+        if indexPath.section == SECTION_TASKS {
             let taskCell = tableView.dequeueReusableCell(withIdentifier: TASK_CELL, for: indexPath)
             as! TaskTableViewCell
             let task = filteredTasks[indexPath.row]
@@ -79,35 +87,82 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
             taskCell.nameLabel.text = task.taskTitle
             taskCell.dueDateLabel.text = dateFormatter.string(from: task.dueDate!)
             
+            //change due date color according to priority
+            
+            let components = Calendar.current.dateComponents([.day], from: task.dueDate!, to: TODAY)
+            let color: UIColor?
+            
+            if components.day == 0 {
+                // show orange text
+                taskCell.dueDateLabel.text = "Today!"
+                color = UIColor.orange
+            }
+            else if components.day! < 0 {
+                //show green text
+                color = UIColor.green
+            }
+            else if TODAY > task.dueDate! {
+                //show red text
+                color = UIColor.red
+            }
+            else {
+                color = UIColor.gray
+            }
+            taskCell.dueDateLabel.textColor = color!
+            
             return taskCell
         }
         
         let statusCell = tableView.dequeueReusableCell(withIdentifier: STATUS_CELL, for: indexPath) as! TaskStatusTableViewCell
-        statusCell.statusLabel?.text = "\(allTasks.count) more task(s) to go"
+        let color: UIColor = .red
+        if allTasks.count == 0 {
+            statusCell.statusLabel?.text = "Free like FreeBird🐦"
+            statusCell.taskNumLabel?.text = ""
+        }
+        else {
+        statusCell.statusLabel?.text = " more task(s) to go"
+        
+        //give the number color
+        statusCell.taskNumLabel?.text = "\(allTasks.count)"
+        statusCell.taskNumLabel?.textColor = color
+        }
         statusCell.selectionStyle = .none
+        
         return statusCell
     }
     
 
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
+    
 
-    /*
+    
     // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete  && indexPath.section == SECTION_TASKS{
+            self.allTasks.remove(at: indexPath.row)
+            self.filteredTasks.remove(at: indexPath.row)
             // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.reloadSections(IndexSet(integer: 1), with: .none)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if indexPath.section == SECTION_STATUS {
+            return UITableViewCell.EditingStyle.none
+        }
+        else {
+            return UITableViewCell.EditingStyle.delete
+        }
+    }
+    
 
     /*
     // Override to support rearranging the table view.
@@ -124,29 +179,42 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String{
+        if section == SECTION_TASKS {
+            return "Task and due date"
+        }
+        else {
+            return "List report"
+        }
     }
-    */
     
     func testMethod() {
         allTasks.append(Task(title: "Task1", des: "1", due: Date()))
         allTasks.append(Task(title: "Task2", des: "2", due: Date()))
         allTasks.append(Task(title: "Task3", des: "3", due: Date()))
         allTasks.append(Task(title: "Task4", des: "4", due: Date()))
-        allTasks.append(Task(title: "Task5", des: "5", due: Date()))
+        allTasks.append(Task(title: "Task5", des: "5", due: Date().addingTimeInterval(-100000000)))
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "createTaskSegue" {
+            let destination = segue.destination as! addEditTaskViewController
+            destination.addTaskDelegate = self
+        }
     }
     
     func addTask(newTask: Task) -> Bool {
         allTasks.append(newTask)
         filteredTasks.append(newTask)
         tableView.beginUpdates()
-        tableView.insertRows(at: [IndexPath(row: <#T##Int#>, section: <#T##Int#>)], with: <#T##UITableView.RowAnimation#>)
+        tableView.insertRows(at: [IndexPath(row: filteredTasks.count - 1, section: 0)], with: .automatic)
+        tableView.endUpdates()
+        tableView.reloadSections([SECTION_STATUS], with: .automatic)
+        return true
+    }
+    
+    func removeTask(badTask: Task) -> Bool {
+        return false
     }
 
 }

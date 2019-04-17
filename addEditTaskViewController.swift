@@ -15,6 +15,8 @@ class addEditTaskViewController: UIViewController {
     @IBOutlet weak var newDueDate: UIDatePicker!
     @IBOutlet weak var newStatus: UISegmentedControl!
     
+    weak var addTaskDelegate: TaskDelegate?
+    
     let today = Date();
     
     override func viewDidLoad() {
@@ -25,11 +27,20 @@ class addEditTaskViewController: UIViewController {
     }
     
     @IBAction func onFinish(_ sender: Any) {
+        let rtn: Bool?
         if(newTaskTitle.text! == "") {
             displayMessage(title: "Fail", message: "Please enter a title!")
             return
         }
-        displayMessage(title: "Success", message: "you did it!")
+        if newStatus.titleForSegment(at: newStatus.selectedSegmentIndex) == "No" {
+            rtn = false
+        }
+        else {
+            rtn = true
+        }
+        let task = Task(title: newTaskTitle.text!, des: newTaskDescription.text!, due: newDueDate.date, stat: rtn!)
+        let _ = addTaskDelegate!.addTask(newTask: task)
+        navigationController?.popViewController(animated: true)
     }
     
     /*

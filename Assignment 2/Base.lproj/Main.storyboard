@@ -51,7 +51,7 @@
         <scene sceneID="s5i-uB-bB1">
             <objects>
                 <tableViewController title="All Task List" id="7cM-AZ-jrg" customClass="AllTasksTableViewController" customModule="Assignment_2" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="I9Y-2T-5KI">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="I9Y-2T-5KI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -95,20 +95,29 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="stx-NH-tMP">
-                                            <rect key="frame" x="16" y="12" width="48" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GlO-NG-bcQ">
+                                            <rect key="frame" x="16" y="12" width="29" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="more task to go!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="stx-NH-tMP">
+                                            <rect key="frame" x="50" y="12" width="125" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="stx-NH-tMP" firstAttribute="top" secondItem="lyW-K3-KLY" secondAttribute="topMargin" constant="1" id="RnV-Yl-fr1"/>
-                                        <constraint firstItem="stx-NH-tMP" firstAttribute="leading" secondItem="lyW-K3-KLY" secondAttribute="leadingMargin" id="iOP-yJ-yUx"/>
+                                        <constraint firstItem="GlO-NG-bcQ" firstAttribute="leading" secondItem="lyW-K3-KLY" secondAttribute="leadingMargin" id="5ly-yF-CRd"/>
+                                        <constraint firstItem="stx-NH-tMP" firstAttribute="top" secondItem="lyW-K3-KLY" secondAttribute="topMargin" constant="1" id="Boe-dL-vRQ"/>
+                                        <constraint firstItem="GlO-NG-bcQ" firstAttribute="top" secondItem="lyW-K3-KLY" secondAttribute="topMargin" constant="1" id="Kc6-TG-ziw"/>
+                                        <constraint firstItem="stx-NH-tMP" firstAttribute="leading" secondItem="GlO-NG-bcQ" secondAttribute="trailing" constant="5" id="M2P-Xr-lro"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="statusLabel" destination="stx-NH-tMP" id="LEJ-TU-t8A"/>
+                                    <outlet property="taskNumLabel" destination="GlO-NG-bcQ" id="ofo-ut-esC"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -121,7 +130,7 @@
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="nIk-on-gf9">
                                 <connections>
-                                    <segue destination="Ubz-cY-s9y" kind="show" id="nHu-zP-zkZ"/>
+                                    <segue destination="Ubz-cY-s9y" kind="show" identifier="createTaskSegue" id="nHu-zP-zkZ"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Completed Task" id="8p2-pC-OSb">
@@ -219,8 +228,8 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="o8V-id-gKj">
                                 <rect key="frame" x="125" y="521" width="179" height="29"/>
                                 <segments>
-                                    <segment title="Yes"/>
                                     <segment title="No"/>
+                                    <segment title="Yes"/>
                                 </segments>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nsU-6X-pOH">

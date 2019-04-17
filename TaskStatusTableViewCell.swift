@@ -11,6 +11,7 @@ import UIKit
 class TaskStatusTableViewCell: UITableViewCell {
     
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var taskNumLabel: UILabel!
     
 
     override func awakeFromNib() {

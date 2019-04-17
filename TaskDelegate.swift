@@ -10,4 +10,6 @@ import Foundation
 
 protocol TaskDelegate: AnyObject {
     func addTask(newTask: Task) -> Bool
+    
+    func removeTask(badTask: Task) -> Bool
 }

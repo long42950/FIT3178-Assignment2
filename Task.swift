@@ -22,6 +22,13 @@ class Task: NSObject {
         isCompleted = false
     }
     
+    init(title: String, des: String, due: Date, stat: Bool) {
+        taskTitle = title
+        taskDescription = des
+        dueDate = due
+        isCompleted = stat
+    }
+    
     func setTaskTitle(newTaskTitle: String) {
         taskTitle = newTaskTitle
     }

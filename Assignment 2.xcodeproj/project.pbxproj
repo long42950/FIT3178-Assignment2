@@ -19,7 +19,7 @@
 		FA7A1EBB2266B1EF0087783F /* CompletedTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A1EBA2266B1EF0087783F /* CompletedTaskTableViewController.swift */; };
 		FA7A1EBD2266F4B40087783F /* CompletedTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A1EBC2266F4B40087783F /* CompletedTaskTableViewCell.swift */; };
 		FA7A1EBF2266F5120087783F /* TaskStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A1EBE2266F5120087783F /* TaskStatusTableViewCell.swift */; };
-		FA7A1EC12266F7FC0087783F /* AddTaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A1EC02266F7FC0087783F /* AddTaskDelegate.swift */; };
+		FA7A1EC12266F7FC0087783F /* TaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A1EC02266F7FC0087783F /* TaskDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +37,7 @@
 		FA7A1EBA2266B1EF0087783F /* CompletedTaskTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTaskTableViewController.swift; sourceTree = "<group>"; };
 		FA7A1EBC2266F4B40087783F /* CompletedTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTaskTableViewCell.swift; sourceTree = "<group>"; };
 		FA7A1EBE2266F5120087783F /* TaskStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatusTableViewCell.swift; sourceTree = "<group>"; };
-		FA7A1EC02266F7FC0087783F /* AddTaskDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskDelegate.swift; sourceTree = "<group>"; };
+		FA7A1EC02266F7FC0087783F /* TaskDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +54,7 @@
 		FA7861612265C518000AD2B6 = {
 			isa = PBXGroup;
 			children = (
-				FA7A1EC02266F7FC0087783F /* AddTaskDelegate.swift */,
+				FA7A1EC02266F7FC0087783F /* TaskDelegate.swift */,
 				FA7A1EBE2266F5120087783F /* TaskStatusTableViewCell.swift */,
 				FA7A1EBC2266F4B40087783F /* CompletedTaskTableViewCell.swift */,
 				FA7A1EBA2266B1EF0087783F /* CompletedTaskTableViewController.swift */,
@@ -167,7 +167,7 @@
 				FA7861882265E551000AD2B6 /* TaskTableViewCell.swift in Sources */,
 				FA7A1EBD2266F4B40087783F /* CompletedTaskTableViewCell.swift in Sources */,
 				FA78616E2265C518000AD2B6 /* AppDelegate.swift in Sources */,
-				FA7A1EC12266F7FC0087783F /* AddTaskDelegate.swift in Sources */,
+				FA7A1EC12266F7FC0087783F /* TaskDelegate.swift in Sources */,
 				FA7861842265D05A000AD2B6 /* addEditTaskViewController.swift in Sources */,
 				FA7861862265E500000AD2B6 /* AllTasksTableViewController.swift in Sources */,
 			);
