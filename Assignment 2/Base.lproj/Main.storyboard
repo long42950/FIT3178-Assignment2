@@ -70,22 +70,23 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dueDate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ZL-RX-6zH">
-                                            <rect key="frame" x="234" y="11" width="65" height="21"/>
+                                            <rect key="frame" x="236" y="12" width="65" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="7ZL-RX-6zH" firstAttribute="top" secondItem="bT0-Lz-NLm" secondAttribute="topMargin" constant="1" id="9KW-d5-Quf"/>
                                         <constraint firstItem="Iv1-gs-U8c" firstAttribute="top" secondItem="bT0-Lz-NLm" secondAttribute="topMargin" constant="1" id="Ack-s2-dfh"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="7ZL-RX-6zH" secondAttribute="trailing" constant="5" id="MLg-T0-0dO"/>
-                                        <constraint firstItem="7ZL-RX-6zH" firstAttribute="top" secondItem="bT0-Lz-NLm" secondAttribute="topMargin" id="mPD-HW-cg7"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="7ZL-RX-6zH" secondAttribute="trailing" constant="3" id="EmA-LN-3Kt"/>
                                         <constraint firstItem="Iv1-gs-U8c" firstAttribute="leading" secondItem="bT0-Lz-NLm" secondAttribute="leadingMargin" id="xGF-oH-j2T"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="dueDateLabel" destination="7ZL-RX-6zH" id="3hD-br-639"/>
                                     <outlet property="nameLabel" destination="Iv1-gs-U8c" id="xxe-MQ-e8e"/>
+                                    <segue destination="lOb-6D-RBU" kind="show" identifier="viewTaskSegue" id="1zj-ap-06N"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="taskNumCell" id="rfV-MO-FfF" customClass="TaskStatusTableViewCell" customModule="Assignment_2" customModuleProvider="target">
@@ -322,55 +323,55 @@
         <!--Task Detail Page-->
         <scene sceneID="c1L-Vk-BoH">
             <objects>
-                <viewController title="Task Detail Page" id="lOb-6D-RBU" sceneMemberID="viewController">
+                <viewController title="Task Detail Page" id="lOb-6D-RBU" customClass="TaskDetailViewController" customModule="Assignment_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xk1-Sc-J3p">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Title: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agW-mx-kVH">
-                                <rect key="frame" x="16" y="36" width="82" height="21"/>
+                                <rect key="frame" x="16" y="80" width="82" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.26238607549417725" green="0.78377995466321249" blue="0.12516098630598407" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Egg-Ad-CPk">
-                                <rect key="frame" x="16" y="73" width="29" height="21"/>
+                                <rect key="frame" x="16" y="117" width="29" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OC3-4t-2YJ">
-                                <rect key="frame" x="16" y="110" width="93" height="21"/>
+                                <rect key="frame" x="16" y="154" width="93" height="21"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <color key="textColor" red="0.78377995466321249" green="0.55612899520781822" blue="0.39426450910228428" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="des" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gS-ax-gn1">
-                                <rect key="frame" x="16" y="147" width="28" height="21"/>
+                                <rect key="frame" x="16" y="191" width="28" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ys0-TQ-6jn">
-                                <rect key="frame" x="16" y="184" width="59" height="21"/>
+                                <rect key="frame" x="16" y="228" width="59" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.32820209654866311" green="0.73650143664937995" blue="0.78377995466321249" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySm-ym-dha">
-                                <rect key="frame" x="16" y="221" width="81" height="21"/>
+                                <rect key="frame" x="16" y="265" width="81" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.22266415821059898" blue="0.78377995466321249" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mny-bw-PSw">
-                                <rect key="frame" x="16" y="258" width="35" height="21"/>
+                                <rect key="frame" x="16" y="302" width="35" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="stat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bkx-ri-h5d">
-                                <rect key="frame" x="91" y="184" width="29" height="21"/>
+                                <rect key="frame" x="91" y="228" width="29" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -397,6 +398,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hjO-AW-z7m"/>
                     </view>
+                    <connections>
+                        <outlet property="dateLabel" destination="Mny-bw-PSw" id="NPM-LG-Y5s"/>
+                        <outlet property="desLabel" destination="0gS-ax-gn1" id="4Qn-hc-kWK"/>
+                        <outlet property="statLabel" destination="Bkx-ri-h5d" id="gQj-DL-O5q"/>
+                        <outlet property="titleLabel" destination="Egg-Ad-CPk" id="3S5-Rw-wXN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uwA-vC-4b5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

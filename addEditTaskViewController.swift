@@ -15,7 +15,7 @@ class addEditTaskViewController: UIViewController {
     @IBOutlet weak var newDueDate: UIDatePicker!
     @IBOutlet weak var newStatus: UISegmentedControl!
     
-    weak var addTaskDelegate: TaskDelegate?
+    weak var taskDelegate: TaskDelegate?
     
     let today = Date();
     
@@ -39,7 +39,7 @@ class addEditTaskViewController: UIViewController {
             rtn = true
         }
         let task = Task(title: newTaskTitle.text!, des: newTaskDescription.text!, due: newDueDate.date, stat: rtn!)
-        let _ = addTaskDelegate!.addTask(newTask: task)
+        let _ = taskDelegate!.addTask(newTask: task)
         navigationController?.popViewController(animated: true)
     }
     

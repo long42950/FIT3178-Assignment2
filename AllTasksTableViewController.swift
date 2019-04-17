@@ -23,7 +23,7 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //testMethod()
+        testMethod()
         
         filteredTasks = allTasks
 
@@ -141,26 +141,38 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
     
 
     
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete  && indexPath.section == SECTION_TASKS{
+
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        if indexPath.section == SECTION_STATUS {
+            return []
+        }
+        
+        let done = UITableViewRowAction(style: .normal, title: "done", handler: { action, index in
+            self.allTasks[indexPath.row].isCompleted = true
+            self.allTasks.remove(at: indexPath.row)
+            self.filteredTasks.remove(at: indexPath.row)
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+            tableView.reloadData()
+            
+        })
+        done.backgroundColor = .blue
+        
+        let delete = UITableViewRowAction(style: .normal, title: "delete", handler: { action, index in
             self.allTasks.remove(at: indexPath.row)
             self.filteredTasks.remove(at: indexPath.row)
             // Delete the row from the data source
+            tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
             tableView.reloadSections(IndexSet(integer: 1), with: .none)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        if indexPath.section == SECTION_STATUS {
-            return UITableViewCell.EditingStyle.none
-        }
-        else {
-            return UITableViewCell.EditingStyle.delete
-        }
+            
+        })
+        delete.backgroundColor = .red
+        
+        return [done, delete]
     }
     
 
@@ -188,6 +200,10 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
         }
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    }
+    
     func testMethod() {
         allTasks.append(Task(title: "Task1", des: "1", due: Date()))
         allTasks.append(Task(title: "Task2", des: "2", due: Date()))
@@ -199,9 +215,13 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "createTaskSegue" {
             let destination = segue.destination as! addEditTaskViewController
-            destination.addTaskDelegate = self
+            destination.taskDelegate = self
         }
-    }
+        
+        if segue.identifier == "viewTaskSegue" {
+            let destination = segue.destination as! TaskDetailViewController
+            destination.task = filteredTasks[self.tableView.indexPathForSelectedRow!.row]
+        }    }
     
     func addTask(newTask: Task) -> Bool {
         allTasks.append(newTask)
