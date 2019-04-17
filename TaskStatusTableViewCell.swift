@@ -9,6 +9,9 @@
 import UIKit
 
 class TaskStatusTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var statusLabel: UILabel!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()

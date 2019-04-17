@@ -10,11 +10,19 @@ import UIKit
 
 class AllTasksTableViewController: UITableViewController, UISearchResultsUpdating{
     
+    let SECTION_TASKS = 0;
+    let SECTION_STATUS = 1;
+    let TASK_CELL = "taskCell"
+    let STATUS_CELL = "taskNumCell"
     var allTasks: [Task] = []
     var filteredTasks: [Task] = []
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        testMethod()
         
         filteredTasks = allTasks
 
@@ -41,23 +49,41 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        if section == SECTION_TASKS {
+            return filteredTasks.count
+        }
+        else {
+            return 1
+        }
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+        if indexPath.section == SECTION_STATUS {
+            let taskCell = tableView.dequeueReusableCell(withIdentifier: TASK_CELL, for: indexPath)
+            as! TaskTableViewCell
+            let task = filteredTasks[indexPath.row]
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .none
+            dateFormatter.locale = Locale(identifier: "en_AU")
+            
+            taskCell.nameLabel.text = task.taskTitle
+            taskCell.dueDateLabel.text = dateFormatter.string(from: task.dueDate!)
+        }
+        
+        let statusCell = tableView.dequeueReusableCell(withIdentifier: STATUS_CELL, for: indexPath) as! TaskStatusTableViewCell
+        statusCell.statusLabel?.text = "\(allTasks.count) more task(s) to go"
+        statusCell.selectionStyle = .none
+        return statusCell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -103,5 +129,13 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func testMethod() {
+        allTasks.append(Task(title: "Task1", des: "1", due: Date()))
+        allTasks.append(Task(title: "Task2", des: "2", due: Date()))
+        allTasks.append(Task(title: "Task3", des: "3", due: Date()))
+        allTasks.append(Task(title: "Task4", des: "4", due: Date()))
+        allTasks.append(Task(title: "Task5", des: "5", due: Date()))
+    }
 
 }

@@ -9,6 +9,10 @@
 import UIKit
 
 class TaskTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var dueDateLabel: UILabel!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
