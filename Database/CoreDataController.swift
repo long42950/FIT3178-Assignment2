@@ -56,8 +56,8 @@ class CoreDataController: NSObject, NSFetchedResultsControllerDelegate, Database
         saveContext()
     }
     
-    func markAsCompleted(row: Int) {
-        
+    func markAsCompleted(task: Task) {
+        task.setValue(true, forKey: "isCompleted")
     }
     
     func addListener(listener: DatabaseListener) {

@@ -184,13 +184,15 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
         }
         
         let done = UITableViewRowAction(style: .normal, title: "done", handler: { action, index in
-            self.allTasks[indexPath.row].isCompleted = true
+            let completedTask = self.filteredTasks[indexPath.row]
+            //self.allTasks[indexPath.row].isCompleted = true
             self.allTasks.remove(at: indexPath.row)
             self.filteredTasks.remove(at: indexPath.row)
             tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
             tableView.reloadData()
+            let _ = self.databaseController?.markAsCompleted(task: completedTask)
 
         })
         done.backgroundColor = .blue

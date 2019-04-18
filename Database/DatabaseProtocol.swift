@@ -28,7 +28,7 @@ protocol DatabaseProtocol: AnyObject {
     
     func addTask(title: String, des: String, due: Date, completed: Bool) -> Task
     func deleteTask(task: Task)
-    func markAsCompleted(row: Int)
+    func markAsCompleted(task: Task)
     func addListener(listener: DatabaseListener)
     func removeListener(listener: DatabaseListener)
 }
