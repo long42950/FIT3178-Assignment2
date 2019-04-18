@@ -9,6 +9,10 @@
 import Foundation
 
 protocol TaskDelegate: AnyObject {
+    
+    //what to do when a task was edited
     func taskIsEdited(task: Task)
-    func removeTask()
+    
+    //the help reload a table's data
+    func refreshTaskList()
 }

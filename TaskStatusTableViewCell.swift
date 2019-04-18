@@ -10,7 +10,10 @@ import UIKit
 
 class TaskStatusTableViewCell: UITableViewCell {
     
+    //this is the text shown on the status cell
     @IBOutlet weak var statusLabel: UILabel!
+    
+    //this is the number of incompleted task shown on the status cell
     @IBOutlet weak var taskNumLabel: UILabel!
     
 

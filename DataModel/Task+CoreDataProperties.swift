@@ -16,7 +16,7 @@ extension Task {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Task> {
         return NSFetchRequest<Task>(entityName: "Task")
     }
-
+//These are the fields representing the Task entity
     @NSManaged public var taskTitle: String?
     @NSManaged public var taskDescription: String?
     @NSManaged public var dueDate: NSDate?

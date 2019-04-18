@@ -20,15 +20,26 @@ enum ListenerType {
 
 protocol DatabaseListener: AnyObject {
     var listenerType: ListenerType {get set}
-    //func onEdit (change: DatabaseChange, task: Task)
+    
+    //This method feeds all tasks to the local array when implemented in
+    //both incompleted and completed task list
     func onTaskListChange(change: DatabaseChange, tasks: [Task])
 }
 
 protocol DatabaseProtocol: AnyObject {
     
+    //create task in CoreData persistant storage
     func addTask(title: String, des: String, due: Date, completed: Bool) -> Task
+    
+    //delete a task in CoreData persistant storage
     func deleteTask(task: Task)
+    
+    //update a task's status to completed: (change isCompleted to true)
     func markAsCompleted(task: Task)
+    
+    //add a new screen's DatabaseListener to the listener list
     func addListener(listener: DatabaseListener)
+    
+    //remove a DatabaseListener from the listener list
     func removeListener(listener: DatabaseListener)
 }

@@ -27,18 +27,22 @@ class TaskDetailViewController: UIViewController, TaskDelegate {
         // Do any additional setup after loading the view.
     }
     
-    func removeTask() {
+    //an abstract method but not needed in the TaskDetailPage
+    func refreshTaskList() {
         //unused
         }
     
+    //if the task was edited refresh the page with new data and
+    //notify the changes to either task list
     func taskIsEdited(task: Task) {
         self.task = task
         self.enrichLabel()
         if task.isCompleted {
-            taskDelegate!.removeTask()
+            taskDelegate!.refreshTaskList()
         }
     }
     
+    //this method will refresh the label with updated value
     func enrichLabel() {
         titleLabel.text = task!.taskTitle
         desLabel.text = task!.taskDescription
@@ -55,16 +59,10 @@ class TaskDetailViewController: UIViewController, TaskDelegate {
         dateLabel.text = dateFormatter.string(from: task!.dueDate! as Date)    }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
+    // MARK: - Navigation
+    
+    //this will help sending the task's value to the addEdit task page
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editTaskSegue" {
             let destination = segue.destination as! addEditTaskViewController

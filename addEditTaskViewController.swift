@@ -17,15 +17,24 @@ class addEditTaskViewController: UIViewController {
     
     weak var databaseController: DatabaseProtocol?
     weak var taskDelegate: TaskDelegate?
+    
+    //this holds the task that maybe edited, which is the task showing on this screen
     var editTask: Task?
+    
+    //this holds the task that had been edited, which is the task showing on this screen
     var newTask: Task?
+    
+    //flag to see if the task is edited
     var isEdit: Bool = false;
     
-    let today = Date();
+    //current date
+    let TODAY = Date();
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        newDueDate.minimumDate = today;
+        
+        //forbid the user from choosing any previous date
+        newDueDate.minimumDate = TODAY;
         newTask = nil
 
         // Do any additional setup after loading the view.
@@ -33,6 +42,7 @@ class addEditTaskViewController: UIViewController {
         databaseController = appDelegate.databaseController
         isEdit = false;
         
+        //not nil means this task had been edited
         if editTask != nil {
             newTaskTitle.text = editTask!.taskTitle
             newTaskDescription.text = editTask!.taskDescription
@@ -45,15 +55,17 @@ class addEditTaskViewController: UIViewController {
                 
             }
             
-            let components = Calendar.current.dateComponents([.day], from: self.editTask!.dueDate! as Date, to: self.today)
+            //check if the task is overdue, if true remind the user
+            let components = Calendar.current.dateComponents([.day], from: self.editTask!.dueDate! as Date, to: self.TODAY)
             
-            if components.day! < 0 && !self.editTask!.isCompleted {
+            if components.day! > 0 && !self.editTask!.isCompleted {
                 self.displayMessage(title: "Important", message: "This task is overdue! You can only choose today or onward as your new due date!")
             }
             isEdit = true
         }
     }
     
+    //add or edit the task when user finished
     @IBAction func onFinish(_ sender: Any) {
         let rtn: Bool?
         if(newTaskTitle.text! == "") {
@@ -66,38 +78,25 @@ class addEditTaskViewController: UIViewController {
         else {
             rtn = true
         }
+        
+        //if the task is edited delete the old one and add the edited task back to the container
         if isEdit {
             databaseController?.deleteTask(task: self.editTask!)
             editTask = nil
         }
-        newTask = databaseController!.addTask(title: newTaskTitle.text!, des: newTaskDescription.text!, due: newDueDate.date, completed: rtn!)
+        newTask = databaseController!.addTask(title: newTaskTitle.text!, des: newTaskDescription.text!, due: newDueDate.date < TODAY ? TODAY : newDueDate.date, completed: rtn!)
         if isEdit {
             taskDelegate!.taskIsEdited(task: newTask!)
         }
         navigationController?.popViewController(animated: true)
     }
     
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
+    //method for invoking the message box
     func displayMessage(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message,
                                                 preferredStyle: UIAlertController.Style.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.cancel, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "editTaskSegue" {
-            print("test")
-        }
-    }
+
 }

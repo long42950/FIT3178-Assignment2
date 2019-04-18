@@ -10,13 +10,28 @@ import UIKit
 
 class AllTasksTableViewController: UITableViewController, UISearchResultsUpdating, DatabaseListener, TaskDelegate{
     
+    //section indicator for task cells
     let SECTION_TASKS = 0;
+    
+    //section indicator for status cell
     let SECTION_STATUS = 1;
+    
+    //indicator for task cell
     let TASK_CELL = "taskCell"
+    
+    //indicator for status cell
     let STATUS_CELL = "taskNumCell"
+    
+    //current date
     let TODAY = Date()
+    
+    //the local task list
     var allTasks: [Task] = []
+    
+    //the local filtered task list
     var filteredTasks: [Task] = []
+    
+    //databaseController for this page
     weak var databaseController: DatabaseProtocol?
     
 
@@ -39,6 +54,8 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
         
     }
     
+    //this method will add this page's listener to the listener list
+    //when appear on the screen
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)
@@ -48,14 +65,18 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
         
     }
     
+    //this method will remove this page's listener from the listener list
+    //when disappear on the screen
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         databaseController?.removeListener(listener: self)
     }
     
+    //setup the listenerType to tasks
     var listenerType = ListenerType.tasks
     
-    
+    //clean up the local task list, refresh it with what's fetched from the
+    //container
     func onTaskListChange(change: DatabaseChange, tasks: [Task]) {
         allTasks = []
         for task in tasks {
@@ -67,6 +88,7 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
         updateSearchResults(for: navigationItem.searchController!)
     }
     
+    //update the list everytime the user type in new requirement
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text?.lowercased(), searchText.count > 0 {
             filteredTasks = allTasks.filter({(task: Task) -> Bool in
@@ -81,14 +103,15 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
     }
     // MARK: - Table view data source
 
+    //define the number of section
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 2
     }
 
+    //define the number of row in a section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        var count: Int  = 0
         //exclude completed task
         if section == SECTION_TASKS {
             return filteredTasks.count
@@ -99,6 +122,7 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
     }
 
     
+    //define what information is shown on the label
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == SECTION_TASKS {
@@ -106,6 +130,7 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
             as! TaskTableViewCell
             let task = filteredTasks[indexPath.row]
             
+            //dateFormatter is used for comparing date with the tasks
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .medium
             dateFormatter.timeStyle = .none
@@ -114,8 +139,8 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
             taskCell.nameLabel.text = task.taskTitle
             taskCell.dueDateLabel.text = dateFormatter.string(from: task.dueDate! as Date)
             
-            //change due date color according to priority
             
+            //change due date color according to priority
             let components = Calendar.current.dateComponents([.day], from: task.dueDate! as Date, to: TODAY)
             let color: UIColor?
             
@@ -140,6 +165,7 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
             return taskCell
         }
         
+        //FREE BIRD!!!!
         let statusCell = tableView.dequeueReusableCell(withIdentifier: STATUS_CELL, for: indexPath) as! TaskStatusTableViewCell
         let color: UIColor = .red
         if allTasks.count == 0 {
@@ -166,13 +192,14 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
         return true
     }
     
-
-    func removeTask() {
-        //tableView.reloadData()
-        //tableView.reloadSections(IndexSet(integer: 1), with: .none)
+    //refresh the list
+    func refreshTaskList() {
+        tableView.reloadData()
+        
         
     }
     
+    //not used here
     func taskIsEdited(task: Task) {
         //unused
     }
@@ -214,23 +241,8 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
         
         return [done, delete]
     }
-    
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+    //define titles for each section
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String{
         if section == SECTION_TASKS {
             return "Task and due date"
@@ -240,6 +252,7 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
         }
     }
     
+    //this will help sending the task's value to the task detail page
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "viewTaskSegue" {
             let destination = segue.destination as! TaskDetailViewController
