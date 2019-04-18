@@ -205,6 +205,8 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
     }
 
     //disable edit action for status cell and enable for task cell
+    //this serves as the way to delete and mark task as completed
+    //to perform the above actions swipe the task cell to the left
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         if indexPath.section == SECTION_STATUS {
             return []

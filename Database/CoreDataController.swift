@@ -125,11 +125,15 @@ class CoreDataController: NSObject, NSFetchedResultsControllerDelegate, Database
     
     //create some dummy data incase there's nothing in the app at all
     func createDefaultEntries() {
-        let _ = addTask(title: "Task1", des: "1", due: Date(), completed: false)
-        let _ = addTask(title: "Task2", des: "2", due: Date(), completed: false)
-        let _ = addTask(title: "Task3", des: "3", due: Date(), completed: false)
-        let _ = addTask(title: "Task4", des: "4", due: Date(), completed: false)
-        let _ = addTask(title: "Task5", des: "5", due: Date().addingTimeInterval(-100000000), completed: false)
+        let _ = addTask(title: "Buy Ice Cream", des: "Today is very hot", due: Date(), completed: false)
+        let _ = addTask(title: "Body check", des: "I don't fell so good", due: Date().addingTimeInterval(264600), completed: false)
+        let _ = addTask(title: "travel to Canada", des: "The view must be beautiful", due: Date().addingTimeInterval(3904900), completed: false)
+        let _ = addTask(title: "Visit Dr.House", des: "It's not lupus", due: Date(), completed: false)
+        let _ = addTask(title: "Buy a water bed", des: "Must be good", due: Date(), completed: true)
+        let _ = addTask(title: "ZE event on GFL", des: "no Mako", due: Date().addingTimeInterval(430390), completed: true)
+        let _ = addTask(title: "Finish Assignment 2", des: "this is so difficult :P", due: Date(), completed: true)
+        let _ = addTask(title: "Buy groceries", des: "need more oranges", due: Date().addingTimeInterval(-100000), completed: true)
+        let _ = addTask(title: "Watch Captain Marvel", des: "I love cats", due: Date().addingTimeInterval(-100000000), completed: false)
         
     }
 }
