@@ -156,13 +156,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Rbk-rK-HUI" customClass="CompletedTaskTableViewCell" customModule="Assignment_2" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="completedTaskCell" id="Rbk-rK-HUI" customClass="CompletedTaskTableViewCell" customModule="Assignment_2" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rbk-rK-HUI" id="9RV-P1-htW">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EnY-Xb-0Mr">
+                                            <rect key="frame" x="16" y="11" width="29" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="EnY-Xb-0Mr" firstAttribute="leading" secondItem="9RV-P1-htW" secondAttribute="leadingMargin" id="H89-dC-dPO"/>
+                                        <constraint firstItem="EnY-Xb-0Mr" firstAttribute="top" secondItem="9RV-P1-htW" secondAttribute="topMargin" id="dA7-YY-aJb"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="titleLabel" destination="EnY-Xb-0Mr" id="LYz-vB-RtV"/>
+                                    <segue destination="lOb-6D-RBU" kind="show" identifier="viewCompletedTaskSegue" id="f8L-bd-ypz"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -421,6 +437,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="f8L-bd-ypz"/>
         <segue reference="iF2-Wh-uhr"/>
         <segue reference="mIw-BI-Vtq"/>
     </inferredMetricsTieBreakers>

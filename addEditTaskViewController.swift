@@ -47,7 +47,7 @@ class addEditTaskViewController: UIViewController {
             
             let components = Calendar.current.dateComponents([.day], from: self.editTask!.dueDate! as Date, to: self.today)
             
-            if components.day == 0 {
+            if components.day! < 0 && !self.editTask!.isCompleted {
                 self.displayMessage(title: "Important", message: "This task is overdue! You can only choose today or onward as your new due date!")
             }
             isEdit = true

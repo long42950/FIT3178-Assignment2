@@ -55,9 +55,6 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
     
     var listenerType = ListenerType.tasks
     
-    func onEdit(change: DatabaseChange, task: Task) {
-        
-    }
     
     func onTaskListChange(change: DatabaseChange, tasks: [Task]) {
         allTasks = []
@@ -94,12 +91,7 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
         var count: Int  = 0
         //exclude completed task
         if section == SECTION_TASKS {
-            for task in filteredTasks {
-                if !task.isCompleted {
-                    count += 1
-                }
-            }
-            return count
+            return filteredTasks.count
         }
         else {
             return 1
@@ -120,7 +112,6 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
             dateFormatter.locale = Locale(identifier: "en_AU")
             
             taskCell.nameLabel.text = task.taskTitle
-            print("\(task)")
             taskCell.dueDateLabel.text = dateFormatter.string(from: task.dueDate! as Date)
             
             //change due date color according to priority
@@ -186,7 +177,7 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
         //unused
     }
 
-    
+    //disable edit action for status cell and enable for task cell
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         if indexPath.section == SECTION_STATUS {
             return []
@@ -245,10 +236,6 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
         else {
             return "List report"
         }
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
