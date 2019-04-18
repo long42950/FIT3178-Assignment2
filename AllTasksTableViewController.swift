@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AllTasksTableViewController: UITableViewController, UISearchResultsUpdating, TaskDelegate{
+class AllTasksTableViewController: UITableViewController, UISearchResultsUpdating, DatabaseListener{
     
     let SECTION_TASKS = 0;
     let SECTION_STATUS = 1;
@@ -17,15 +17,16 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
     let TODAY = Date()
     var allTasks: [Task] = []
     var filteredTasks: [Task] = []
-    var addTaskDelegate: TaskDelegate?
+    weak var databaseController: DatabaseProtocol?
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        testMethod()
+
         
-        filteredTasks = allTasks
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        databaseController = appDelegate.databaseController
 
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
@@ -33,6 +34,31 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
         searchController.searchBar.placeholder = "Search Tasks"
         navigationItem.searchController = searchController
         
+        definesPresentationContext = true
+
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        databaseController?.removeListener(listener: self)
+    }
+    
+    var listenerType = ListenerType.tasks
+    
+    func onEdit(change: DatabaseChange, task: Task) {
+        
+    }
+    
+    func onTaskListChange(change: DatabaseChange, tasks: [Task]) {
+        allTasks = tasks
+        filteredTasks = allTasks
+        updateSearchResults(for: navigationItem.searchController!)
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -59,8 +85,8 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
         var count: Int  = 0
         //exclude completed task
         if section == SECTION_TASKS {
-            for task in allTasks {
-                if !task.isCompleted! {
+            for task in filteredTasks {
+                if !task.isCompleted {
                     count += 1
                 }
             }
@@ -85,11 +111,11 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
             dateFormatter.locale = Locale(identifier: "en_AU")
             
             taskCell.nameLabel.text = task.taskTitle
-            taskCell.dueDateLabel.text = dateFormatter.string(from: task.dueDate!)
+            taskCell.dueDateLabel.text = dateFormatter.string(from: task.dueDate! as Date)
             
             //change due date color according to priority
             
-            let components = Calendar.current.dateComponents([.day], from: task.dueDate!, to: TODAY)
+            let components = Calendar.current.dateComponents([.day], from: task.dueDate! as Date, to: TODAY)
             let color: UIColor?
             
             if components.day == 0 {
@@ -101,7 +127,7 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
                 //show green text
                 color = UIColor.green
             }
-            else if TODAY > task.dueDate! {
+            else if TODAY > task.dueDate! as Date {
                 //show red text
                 color = UIColor.red
             }
@@ -148,19 +174,20 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
             return []
         }
         
-        let done = UITableViewRowAction(style: .normal, title: "done", handler: { action, index in
-            self.allTasks[indexPath.row].isCompleted = true
-            self.allTasks.remove(at: indexPath.row)
-            self.filteredTasks.remove(at: indexPath.row)
-            tableView.beginUpdates()
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            tableView.endUpdates()
-            tableView.reloadData()
-            
-        })
-        done.backgroundColor = .blue
+//        let done = UITableViewRowAction(style: .normal, title: "done", handler: { action, index in
+//            self.allTasks[indexPath.row].isCompleted = true
+//            self.allTasks.remove(at: indexPath.row)
+//            self.filteredTasks.remove(at: indexPath.row)
+//            tableView.beginUpdates()
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//            tableView.endUpdates()
+//            tableView.reloadData()
+//
+//        })
+//        done.backgroundColor = .blue
         
         let delete = UITableViewRowAction(style: .normal, title: "delete", handler: { action, index in
+            let deleteTask = self.filteredTasks[indexPath.row]
             self.allTasks.remove(at: indexPath.row)
             self.filteredTasks.remove(at: indexPath.row)
             // Delete the row from the data source
@@ -168,11 +195,13 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
             tableView.reloadSections(IndexSet(integer: 1), with: .none)
+            let _ = self.databaseController?.deleteTask(task: deleteTask)
+            
             
         })
         delete.backgroundColor = .red
         
-        return [done, delete]
+        return [delete]
     }
     
 
@@ -204,37 +233,12 @@ class AllTasksTableViewController: UITableViewController, UISearchResultsUpdatin
 
     }
     
-    func testMethod() {
-        allTasks.append(Task(title: "Task1", des: "1", due: Date()))
-        allTasks.append(Task(title: "Task2", des: "2", due: Date()))
-        allTasks.append(Task(title: "Task3", des: "3", due: Date()))
-        allTasks.append(Task(title: "Task4", des: "4", due: Date()))
-        allTasks.append(Task(title: "Task5", des: "5", due: Date().addingTimeInterval(-100000000)))
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "createTaskSegue" {
-            let destination = segue.destination as! addEditTaskViewController
-            destination.taskDelegate = self
-        }
-        
         if segue.identifier == "viewTaskSegue" {
             let destination = segue.destination as! TaskDetailViewController
             destination.task = filteredTasks[self.tableView.indexPathForSelectedRow!.row]
-        }    }
-    
-    func addTask(newTask: Task) -> Bool {
-        allTasks.append(newTask)
-        filteredTasks.append(newTask)
-        tableView.beginUpdates()
-        tableView.insertRows(at: [IndexPath(row: filteredTasks.count - 1, section: 0)], with: .automatic)
-        tableView.endUpdates()
-        tableView.reloadSections([SECTION_STATUS], with: .automatic)
-        return true
-    }
-    
-    func removeTask(badTask: Task) -> Bool {
-        return false
+            //filteredTasks[1].objectID
+        }
     }
 
 }

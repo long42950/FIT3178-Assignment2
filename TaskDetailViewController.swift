@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskDetailViewController: UIViewController {
+class TaskDetailViewController: UIViewController, TaskDelegate {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var desLabel: UILabel!
@@ -23,9 +23,19 @@ class TaskDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.enrichLabel()
+        // Do any additional setup after loading the view.
+    }
+    
+    func taskIsEdited(task: Task) {
+        self.task = task
+        self.enrichLabel()
+    }
+    
+    func enrichLabel() {
         titleLabel.text = task!.taskTitle
         desLabel.text = task!.taskDescription
-        if task!.isCompleted! {
+        if task!.isCompleted {
             statLabel.text = "Completed"
         }
         else {
@@ -35,10 +45,7 @@ class TaskDetailViewController: UIViewController {
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
         dateFormatter.locale = Locale(identifier: "en_AU")
-        
-        dateLabel.text = dateFormatter.string(from: task!.dueDate!)
-        // Do any additional setup after loading the view.
-    }
+        dateLabel.text = dateFormatter.string(from: task!.dueDate! as Date)    }
     
 
     /*
@@ -50,5 +57,13 @@ class TaskDetailViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editTaskSegue" {
+            let destination = segue.destination as! addEditTaskViewController
+            destination.editTask = task
+            destination.taskDelegate = self
+        }
+    }
 
 }

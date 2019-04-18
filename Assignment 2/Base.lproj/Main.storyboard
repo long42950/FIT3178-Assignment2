@@ -268,7 +268,7 @@
                     <navigationItem key="navigationItem" title="Add/Edit task" id="g2u-d1-nRR">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="o3v-8N-DNo">
                             <connections>
-                                <action selector="onFinish:" destination="Ubz-cY-s9y" id="M0D-X8-XE5"/>
+                                <action selector="onFinish:" destination="Ubz-cY-s9y" id="vmq-BJ-Iy9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -376,6 +376,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RJW-va-Ald">
+                                <rect key="frame" x="108" y="360" width="105" height="30"/>
+                                <state key="normal" title="Edit Task Detail"/>
+                                <connections>
+                                    <segue destination="Ubz-cY-s9y" kind="show" identifier="editTaskSegue" id="mIw-BI-Vtq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -384,9 +391,12 @@
                             <constraint firstItem="Bkx-ri-h5d" firstAttribute="top" secondItem="OC3-4t-2YJ" secondAttribute="bottom" constant="53" id="8tM-8I-7rv"/>
                             <constraint firstItem="ySm-ym-dha" firstAttribute="leading" secondItem="hjO-AW-z7m" secondAttribute="leading" constant="16" id="Ek0-fL-dAg"/>
                             <constraint firstItem="agW-mx-kVH" firstAttribute="top" secondItem="hjO-AW-z7m" secondAttribute="top" constant="16" id="K86-AV-zrr"/>
+                            <constraint firstItem="RJW-va-Ald" firstAttribute="top" secondItem="Bkx-ri-h5d" secondAttribute="bottom" constant="111" id="QK9-He-KZR"/>
                             <constraint firstItem="Egg-Ad-CPk" firstAttribute="top" secondItem="agW-mx-kVH" secondAttribute="bottom" constant="16" id="Rm4-Ba-Cva"/>
                             <constraint firstItem="Egg-Ad-CPk" firstAttribute="leading" secondItem="hjO-AW-z7m" secondAttribute="leading" constant="16" id="Usv-iR-7ik"/>
                             <constraint firstItem="agW-mx-kVH" firstAttribute="leading" secondItem="hjO-AW-z7m" secondAttribute="leading" constant="16" id="Wiy-8t-KEM"/>
+                            <constraint firstItem="RJW-va-Ald" firstAttribute="leading" secondItem="hjO-AW-z7m" secondAttribute="leading" constant="108" id="Yiy-Kq-kRD"/>
+                            <constraint firstItem="hjO-AW-z7m" firstAttribute="trailing" secondItem="RJW-va-Ald" secondAttribute="trailing" constant="107" id="aDE-wm-VEJ"/>
                             <constraint firstItem="Mny-bw-PSw" firstAttribute="leading" secondItem="hjO-AW-z7m" secondAttribute="leading" constant="16" id="czM-a0-3H3"/>
                             <constraint firstItem="0gS-ax-gn1" firstAttribute="top" secondItem="OC3-4t-2YJ" secondAttribute="bottom" constant="16" id="f54-F7-hG7"/>
                             <constraint firstItem="Ys0-TQ-6jn" firstAttribute="leading" secondItem="hjO-AW-z7m" secondAttribute="leading" constant="16" id="hbE-pS-lv6"/>
@@ -412,5 +422,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="iF2-Wh-uhr"/>
+        <segue reference="mIw-BI-Vtq"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -10,8 +10,12 @@ import UIKit
 
 class CompletedTaskTableViewController: UITableViewController, UISearchResultsUpdating {
     
+    let SECTION_TASKS = 0;
+    let TASK_CELL = "taskCell"
+    let TODAY = Date()
     var allTasks: [Task] = []
     var filteredTasks: [Task] = []
+    weak var databaseController: DatabaseProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()

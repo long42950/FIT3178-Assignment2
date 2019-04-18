@@ -15,15 +15,40 @@ class addEditTaskViewController: UIViewController {
     @IBOutlet weak var newDueDate: UIDatePicker!
     @IBOutlet weak var newStatus: UISegmentedControl!
     
+    weak var databaseController: DatabaseProtocol?
     weak var taskDelegate: TaskDelegate?
+    var editTask: Task?
+    var newTask: Task?
+    var isEdit: Bool = false;
     
     let today = Date();
     
     override func viewDidLoad() {
         super.viewDidLoad()
         newDueDate.minimumDate = today;
+        newTask = nil
 
         // Do any additional setup after loading the view.
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        databaseController = appDelegate.databaseController
+        isEdit = false;
+        
+        if editTask != nil {
+            newTaskTitle.text = editTask!.taskTitle
+            newTaskDescription.text = editTask!.taskDescription
+            newDueDate.date = editTask!.dueDate! as Date
+            if editTask!.isCompleted {
+                newStatus.selectedSegmentIndex = 1
+            }
+            else {
+                newStatus.selectedSegmentIndex = 0
+                
+            }
+            if (editTask!.dueDate! as Date) < (self.today) {
+                self.displayMessage(title: "Important", message: "This task is overdue! You can only choose today or onward as your new due date!")
+            }
+            isEdit = true
+        }
     }
     
     @IBAction func onFinish(_ sender: Any) {
@@ -38,10 +63,17 @@ class addEditTaskViewController: UIViewController {
         else {
             rtn = true
         }
-        let task = Task(title: newTaskTitle.text!, des: newTaskDescription.text!, due: newDueDate.date, stat: rtn!)
-        let _ = taskDelegate!.addTask(newTask: task)
+        if isEdit {
+            databaseController?.deleteTask(task: self.editTask!)
+            editTask = nil
+        }
+        newTask = databaseController!.addTask(title: newTaskTitle.text!, des: newTaskDescription.text!, due: newDueDate.date, completed: rtn!)
+        if isEdit {
+            taskDelegate!.taskIsEdited(task: newTask!)
+        }
         navigationController?.popViewController(animated: true)
     }
+    
     
     /*
     // MARK: - Navigation
@@ -59,5 +91,10 @@ class addEditTaskViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.cancel, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editTaskSegue" {
+            print("test")
+        }
+    }
 }
