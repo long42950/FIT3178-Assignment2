@@ -16,7 +16,7 @@ class TaskDetailViewController: UIViewController, TaskDelegate {
     @IBOutlet weak var dateLabel: UILabel!
     
     
-    
+    weak var taskDelegate: TaskDelegate?
     
     var task: Task?
 
@@ -27,9 +27,16 @@ class TaskDetailViewController: UIViewController, TaskDelegate {
         // Do any additional setup after loading the view.
     }
     
+    func removeTask() {
+        //unused
+        }
+    
     func taskIsEdited(task: Task) {
         self.task = task
         self.enrichLabel()
+        if task.isCompleted {
+            taskDelegate!.removeTask()
+        }
     }
     
     func enrichLabel() {

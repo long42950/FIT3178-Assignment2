@@ -9,5 +9,6 @@
 import Foundation
 
 protocol TaskDelegate: AnyObject {
-    func taskIsEdited(task: Task) 
+    func taskIsEdited(task: Task)
+    func removeTask()
 }
